@@ -1,0 +1,40 @@
+<section class="content">
+    <div class="home">
+        <div class="home__form">
+            <app-form (payloadChangeEvent)="payloadChangeEvent($event)"></app-form>
+        </div>
+        <div class="home__schema">
+            <pre>
+                <code>
+type: object
+properties:
+    vertices:
+        type: array
+        properties:
+            id:
+                type: string
+            label:
+                type: string
+            type
+                type: string
+    edges:
+        type: array
+        properties:
+            id:
+                type: string
+            label:
+                type: string
+            type:
+                type: string
+            source_id:
+                type: string
+            target_id:
+                type: string
+                </code>
+            </pre>
+        </div>
+        <div class="home__chart">
+            <chart [payload]="payload"></chart>
+        </div>
+    </div>
+</section>
