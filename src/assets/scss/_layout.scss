@@ -14,7 +14,8 @@ body {
   background-color: $black-coral;
 }
 
-body > header {
+body > header,
+body > app-header {
   grid-row: 1 / 2;
   width: 100%;
   z-index: 1000;
@@ -24,7 +25,8 @@ body > main {
   grid-row: 2 / 3;
 }
 
-body > footer {
+body > footer,
+body > app-footer {
   grid-row: 3 / 4;
 }
 
