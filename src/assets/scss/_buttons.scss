@@ -1,0 +1,27 @@
+@import '_variables';
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 4rem;
+  padding: 0 4rem;
+  border-radius: 0.4rem;
+  font-size: 1.6rem;
+  text-decoration: none;
+  transition: all 0.2s ease-out;
+
+  &--primary {
+    background-color: $black-coral;
+    border: 1px solid $outer-space-crayola;
+    color: white;
+
+    &:hover {
+        background-color: $outer-space-crayola;
+    }
+  }
+
+  &--secondary {
+    border: 1px solid $outer-space-crayola;
+  }
+}
