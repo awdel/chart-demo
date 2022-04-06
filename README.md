@@ -1,4 +1,4 @@
-# Chart Demo
+# Graph Demo
 
 Project demoing the parsing of a payload and rendering the visualization in a graph
 
