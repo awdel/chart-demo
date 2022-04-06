@@ -1,8 +1,17 @@
+@import '_variables';
+
 .home {
     display: grid;
-    grid-template-rows: auto auto;
-    grid-template-columns: 1fr 1fr;
+    
+    grid-template-rows: auto auto auto;
+        grid-template-columns: 1fr;
+    grid-gap: 1.6rem;
     margin: 4rem 0;
+
+    @include media(">small") {
+        grid-template-rows: auto 1fr;
+        grid-template-columns: 4fr 3fr;
+    }
 
     &__form {
         grid-row: 1 / 2;
@@ -10,13 +19,25 @@
     }
 
     &__schema {
+        
         grid-row: 2 / 3;
         grid-column: 1 / 2;
+
+        @include media(">small") {
+            grid-row: 2 / 3;
+            grid-column: 1 / 2;
+        }
     }
 
     &__chart {
-        grid-row: 1 / span 2;
-        grid-column: 2 / 3;
+        grid-row: 3 / 4;
+        grid-column: 1 / 2;
+
+        @include media(">small") {
+            
+            grid-row: 1 / span 2;
+            grid-column: 2 / 3;
+        }
     }
 
 }
