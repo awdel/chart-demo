@@ -11,7 +11,6 @@ body {
   grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
-  background-color: $black-coral;
 }
 
 body > header,
@@ -38,4 +37,8 @@ body > icons {
   max-width: 120rem;
   margin: 0 auto;
   padding: 0 1.8rem;
+}
+
+pre {
+  margin: 0;
 }
