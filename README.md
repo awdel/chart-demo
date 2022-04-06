@@ -4,7 +4,9 @@ Project demoing the parsing of a payload and rendering the visualization in a gr
 
 ## Install
 
-Navigate to root directory of project then run `npm install`
+Navigate to root directory of project
+Run `npm install`
+Run `npm install -g @angular/cli` to install Angular CLI
 
 ## Run locally
 
