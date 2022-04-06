@@ -1,4 +1,5 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <textarea formControlName="payload"></textarea>
-    <button type="submit">Submit</button>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+    <textarea formControlName="payload" class="form__textarea"></textarea>
+    <button type="button" class="button button--secondary form__control--clear" (click)="clearForm()">Clear</button>
+    <button type="submit" class="button button--primary form__control--render">Render</button>
 </form>
