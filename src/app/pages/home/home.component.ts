@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Payload } from '@interfaces/payload';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -9,15 +10,21 @@ import { Payload } from '@interfaces/payload';
 })
 export class HomeComponent implements OnInit {
 
-  payload?: Payload;
+  payload!: Payload;
+  clearFormEvent: Subject<void> = new Subject<void>();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  payloadChangeEvent(payload: Payload) {
+  payloadChange(payload: Payload) {
     this.payload = payload;
+  }
+
+  clearForm() {
+    // this.payload = undefined;
+    this.clearFormEvent.next();
   }
 
 }

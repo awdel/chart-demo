@@ -1,11 +1,13 @@
 <section class="content">
     <div class="home">
         <div class="home__form">
-            <app-form (payloadChangeEvent)="payloadChangeEvent($event)"></app-form>
+            <app-form (payloadChangeEvent)="payloadChange($event)" (clearFormEvent)="clearForm()"></app-form>
         </div>
         <div class="home__schema">
-            <pre>
-                <code>
+            <accordion>
+                <panel title="Schema">
+                    <pre>
+                        <code>
 type: object
 properties:
     vertices:
@@ -30,11 +32,14 @@ properties:
                 type: string
             target_id:
                 type: string
-                </code>
-            </pre>
+                        </code>
+                    </pre>
+                </panel>
+            </accordion>
+            
         </div>
         <div class="home__chart">
-            <chart [payload]="payload"></chart>
+            <chart [payload]="payload" [clearFormEvent]="clearFormEvent.asObservable()"></chart>
         </div>
     </div>
 </section>

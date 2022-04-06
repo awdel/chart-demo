@@ -4,6 +4,7 @@ import { Payload } from '@interfaces/payload';
 import { Vertex } from '@interfaces/vertex';
 import { VertexPosition } from '@interfaces/vertex-position';
 import { Edge } from '@interfaces/edge';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'chart',
@@ -12,14 +13,22 @@ import { Edge } from '@interfaces/edge';
 })
 export class ChartComponent implements OnInit {
 
-  @Input() payload?: Payload;
+  private eventsSubscription!: Subscription;
+  @Input() clearFormEvent!: Observable<void>;    
+  @Input()
+  get payload(): Payload { return this._payload; }
+  set payload(payload: Payload) {
+    this._payload = payload;
+    this.renderPayload();
+  }
+  _payload!: Payload;
 
   @ViewChild('chartCanvas')
   chartCanvas: ElementRef = {} as ElementRef;
   ctx: any;
 
-  graphHeight: number = 400;
-  graphWidth: number = 400;
+  graphHeight: number = 500;
+  graphWidth: number = 500;
 
   vertexPositions: Array<VertexPosition> = [];
 
@@ -30,6 +39,7 @@ export class ChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.eventsSubscription = this.clearFormEvent.subscribe(() => {this.resetCanvas()}, error => {});
   }
 
   ngAfterViewInit() {
@@ -41,13 +51,13 @@ export class ChartComponent implements OnInit {
    * Preload all images prior to being rendered for Vertex
    */
   preloadImages() {
-    this.imageNode.src = '/assets/img/circle.png';
-    this.imageAlarm.src = '/assets/img/exclamation-triangle.png';
+    this.imageNode.src = '/assets/img/vertex--node.png';
+    this.imageAlarm.src = '/assets/img/vertex--alarm.png';
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.renderPayload();
-  }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   this.renderPayload();
+  // }
 
   renderGraph() {
     this.ctx = this.chartCanvas.nativeElement.getContext("2d");
@@ -69,12 +79,12 @@ export class ChartComponent implements OnInit {
    * Will run evertime payload updates
    */
   renderPayload() {
-    if(this.payload){
+    if(this._payload){
       this.resetCanvas();
-      this.payload.vertices.forEach(vertex => {
+      this._payload.vertices.forEach(vertex => {
         this.plotVertex(vertex);
       });
-      this.payload.edges.forEach(edge => {
+      this._payload.edges.forEach(edge => {
         this.plotEdge(edge);
       });
     }
@@ -90,13 +100,37 @@ export class ChartComponent implements OnInit {
   }
 
   /**
+   * Guarantee Vertices do not overlap
+   * @param {number} vertexPositionTemp 
+   * @param {string} vertexPositionDirection 
+   * @returns 
+   */
+  clashes(vertexPositionTemp: number, vertexPositionDirection: string) {
+    let clashes = false;
+    this.vertexPositions.forEach(vertexPosition => {
+      // @ts-ignore
+      if(vertexPositionTemp > vertexPosition[vertexPositionDirection] - 10 && vertexPositionTemp < vertexPosition[vertexPositionDirection] + 10) {
+        clashes = true;
+      }
+    });
+    return clashes;
+  }
+
+  /**
    * Add all Vertices to Canvas
    * @param {Vertex} vertex - Vertex from Vertex Array in Payload
    */
   plotVertex(vertex: Vertex) {
     // Randomise Vertex Position
-    const vertexPositionX = this.randomPosition(100, this.graphWidth - 100);
-    const vertexPositionY = this.randomPosition(100, this.graphHeight - 100);
+    let vertexPositionX = this.randomPosition(100, this.graphWidth - 50);
+    while(this.clashes(vertexPositionX, 'posX')){
+      vertexPositionX = this.randomPosition(100, this.graphWidth - 50);
+    }
+
+    let vertexPositionY = this.randomPosition(100, this.graphHeight - 50);
+    while(this.clashes(vertexPositionY, 'posY')){
+      vertexPositionY = this.randomPosition(100, this.graphWidth - 50);
+    }
     
     // Draw Image at Vertex position
     const image = this.getImage(vertex.type);
@@ -137,7 +171,10 @@ export class ChartComponent implements OnInit {
   plotEdge(edge: Edge) {
     const sourceVertex = this.vertexPositions.find(vertex => vertex.id === edge.source_id);
     const targetVertex = this.vertexPositions.find(vertex => vertex.id === edge.target_id);
+    this.ctx.globalCompositeOperation='destination-over';
     this.ctx.beginPath();
+    this.ctx.lineWidth = 3;
+    this.ctx.strokeStyle = "#4c5f6b";
     this.ctx.lineTo(sourceVertex?.posX, sourceVertex?.posY);
     this.ctx.lineTo(targetVertex?.posX, targetVertex?.posY);
     this.ctx.stroke();
@@ -151,6 +188,13 @@ export class ChartComponent implements OnInit {
    */
   randomPosition(min: number, max: number) {
     return Math.floor(Math.random() * (max - min) + min)
+  }
+
+  ngOnDestroy() {
+    if(this.eventsSubscription){
+      this.eventsSubscription.unsubscribe();
+    }
+    
   }
 
 }

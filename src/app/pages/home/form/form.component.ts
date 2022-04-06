@@ -17,6 +17,7 @@ export class FormComponent implements OnInit {
   formInitial = _.cloneDeep(this.form) as FormGroup;
 
   @Output() payloadChangeEvent = new EventEmitter<Payload>();
+  @Output() clearFormEvent = new EventEmitter();
 
   constructor(private toastr: ToastrService) {}
 
@@ -38,7 +39,11 @@ export class FormComponent implements OnInit {
     } catch (error) {
       this.toastr.error('The supplied payload does not match the required schema.', 'Parse error!');
     }
-    
+  }
+
+  clearForm() {
+    this.form.reset(this.formInitial.value, { emitEvent: false });
+    this.clearFormEvent.emit();
   }
 
 }
