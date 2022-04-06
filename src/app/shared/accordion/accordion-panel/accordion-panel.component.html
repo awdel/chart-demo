@@ -1,0 +1,24 @@
+<div class="accordion-panel" [ngClass]="{'open' : opened}">
+    <button class="button accordion-panel-heading" (click)="toggle.emit()">
+      <div class="accordion-panel-heading-title">{{title}}</div>
+      <div class="accordion-panel-heading-toggle">
+        <ng-container *ngIf="opened; then thenBlock; else elseBlock"></ng-container>
+        <ng-template #thenBlock>
+          Close
+          <svg class="icon-arrow-down">
+            <use xlink:href="#icon-chevron-up" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+          </svg>
+        </ng-template>
+        <ng-template #elseBlock>
+          View
+          <svg class="icon-arrow-down">
+            <use xlink:href="#icon-chevron-down" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+          </svg>
+        </ng-template>
+      </div>
+    </button>
+    <div class="accordion-panel-body" *ngIf="opened">
+      <ng-content></ng-content>
+    </div>
+  </div>
+  

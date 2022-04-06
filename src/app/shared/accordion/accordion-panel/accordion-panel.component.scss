@@ -1,0 +1,71 @@
+@import '_variables';
+
+.accordion-panel {
+  $root: &;
+  margin-bottom: 3rem;
+
+  &-heading {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 2rem 1rem;
+    background-color: $black-coral;
+    border: 1px solid $outer-space-crayola;
+    color: $soft-white;
+
+    @include media(">xsmall") {
+      padding: 2.1rem 1.3rem;
+    }
+
+    @include media(">small") {
+      padding: 2.3rem 1.7rem;
+    }
+
+    @include media(">medium") {
+      padding: 2.4rem 2rem;
+    }
+
+    #{$root}.open & {
+      border-bottom-color: transparent;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &-title {
+      text-align: left;
+      font-size: 1.8rem;
+      font-weight: 700;
+
+      @include media(">small") {
+        font-size: 1.9rem;
+      }
+
+      @include media(">medium") {
+        font-size: 2rem;
+      }
+    }
+
+    &-toggle {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      color: $soft-white;
+      text-decoration: underline;
+
+      svg {
+        height: 2rem;
+        width: 2rem;
+        margin-left: 0.8rem;
+        fill: red;
+      }
+    }
+  }
+
+  &-body {
+    padding: 1.8rem;
+    background-color: $platinum;
+    border: 1px solid $outer-space-crayola;
+    border-top-color: transparent;
+  }
+}
