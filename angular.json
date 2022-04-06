@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "chart-demo-temp": {
+    "chart-demo": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/chart-demo-temp",
+            "outputPath": "dist/chart-demo",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -78,10 +78,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "chart-demo-temp:build:production"
+              "browserTarget": "chart-demo:build:production"
             },
             "development": {
-              "browserTarget": "chart-demo-temp:build:development"
+              "browserTarget": "chart-demo:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -89,7 +89,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "chart-demo-temp:build"
+            "browserTarget": "chart-demo:build"
           }
         },
         "test": {
@@ -105,13 +105,19 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/assets/scss/styles.scss",
+              "node_modules/ngx-toastr/toastr.css"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/assets/scss"
+              ]
+            },
             "scripts": []
           }
         }
       }
     }
   },
-  "defaultProject": "chart-demo-temp"
+  "defaultProject": "chart-demo"
 }
