@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
-    <textarea formControlName="payload" class="form__textarea"></textarea>
+    <textarea formControlName="payload" class="form__textarea" placeholder="Enter payload here"></textarea>
     <button type="button" class="button button--secondary form__control--clear" (click)="clearForm()">Clear</button>
     <button type="submit" class="button button--primary form__control--render">Render</button>
 </form>
