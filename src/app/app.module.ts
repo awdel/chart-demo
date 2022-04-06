@@ -5,8 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { NgChartsModule } from 'ng2-charts';
-
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
@@ -15,6 +13,8 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ChartComponent } from './pages/home/chart/chart.component';
 import { FormComponent } from './pages/home/form/form.component';
+import { AccordionComponent } from './shared/accordion/accordion.component';
+import { AccordionPanelComponent } from './shared/accordion/accordion-panel/accordion-panel.component';
 
 @NgModule({
   declarations: [
@@ -23,12 +23,13 @@ import { FormComponent } from './pages/home/form/form.component';
     FooterComponent,
     HomeComponent,
     ChartComponent,
-    FormComponent
+    FormComponent,
+    AccordionComponent,
+    AccordionPanelComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgChartsModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule, // required animations module
